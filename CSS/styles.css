@@ -1,0 +1,88 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:sans-serif;
+}
+
+body {
+    background-color: #090E22;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+main {
+    background-color: #1D1E33;
+    min-width: 400px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+/*IMC FORM*/
+#initial {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h1 {
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.help-text {
+    font-weight: bold;
+    margin-bottom: 0.6rem;
+    color: #ccc;
+}
+
+.data-imc {
+    padding: 1rem 0.5rem;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+#action-button {
+    display: flex;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+button {
+    color: #fff;
+    text-transform: uppercase;
+    padding: 1rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    flex: 1;
+}
+
+#calculate {
+    background-color: #E53935;
+}
+
+#clean {
+    background-color: #444;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+.hide {
+    display: none !important;
+}
