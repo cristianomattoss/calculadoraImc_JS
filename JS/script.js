@@ -1,4 +1,4 @@
-import { createTable } from "./classification.js";
+import { createTable, defineStatus } from "./classification.js";
 
 const heightInput = document.querySelector("#height");
 const weightInput = document.querySelector("#weight");
@@ -30,34 +30,6 @@ function verifyData(value) {
     return value.replace(/[^0-9,.]/g, "");
 }
 
-function defineStatus(imc) {
-    switch (true) {
-        case imc < 18.5:
-            resultImc.classList.add("low");
-            statusImc.classList.add("low");
-            return "Magreza";
-        case imc <= 24.9:
-            resultImc.classList.add("good");
-            statusImc.classList.add("good");
-            return "Normal";
-        case imc <= 29.9:
-            resultImc.classList.add("low");
-            statusImc.classList.add("low");
-            return "Sobrepeso";
-        case imc <= 39.9:
-            resultImc.classList.add("medium");
-            statusImc.classList.add("medium");
-            return "Obesidade";
-        case imc >= 40:
-            resultImc.classList.add("high");
-            statusImc.classList.add("high");
-            return "Obesidade Grave";
-        default:
-            resultImc.textContent = "";
-            return "Valor inválido";
-    }
-}
-
 createTable();
 
 /*EVENTOS*/
@@ -76,17 +48,15 @@ clearBtn.addEventListener("click", () => {
 calculateBtn.addEventListener("click", () => {
     const weight = weightInput.value.replace(",", ".");
     const height = heightInput.value.replace(",", ".");
-    
+
     if(!weight || !height) {
         alert("Informe os valores necessários.");
         return;
     }
 
     const imc = calculateImc(weight, height);
-
-    toggleScreens();
-    resultImc.textContent = imc.toFixed(2);
-    statusImc.textContent = defineStatus(imc);
+    if(defineStatus(imc))
+        toggleScreens();
 });
 
 backBtn.addEventListener("click", () => {

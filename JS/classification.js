@@ -1,3 +1,6 @@
+const resultImc = document.querySelector("#imc-number span");
+const statusImc = document.querySelector("#imc-info span");
+
 const classificationsImc = [
     {
         info: "Menor que 18,5",
@@ -40,6 +43,22 @@ const classificationsImc = [
         class: "high"
     }
 ];
+
+export function defineStatus(imc) {
+    const classification = classificationsImc.find(item => imc >= item.min && imc <= item.max);
+
+    if (classification) {
+        resultImc.textContent = imc.toFixed(2);
+        statusImc.textContent = classification.classification;
+        statusImc.classList.add(classification.class);
+        resultImc.classList.add(classification.class);
+        return true;
+    }
+    else {
+        alert("Pelo menos um valor inválido foi inserido");
+        return false;
+    }
+}
 
 export function createTable() {
     const imcTable = document.querySelector("#table")
