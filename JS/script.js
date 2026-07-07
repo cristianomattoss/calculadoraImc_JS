@@ -24,20 +24,10 @@ function toggleScreens() {
     }
 }
 
-const calculateImc = (weight, height) => {
-    if (!verifyData(weight, height)) {
-        return null;
-    }
+const calculateImc = (weight, height) => Number(weight) / Math.pow(Number(height), 2);
 
-    return Number(weight) / Math.pow(Number(height), 2);
-}
-
-function verifyData(weight, height) {
-    if (weight.trim() === "" || height.trim() === "") {
-        return false;
-    }
-
-    return Number.isFinite(Number(weight)) && Number.isFinite(Number(height));
+function verifyData(value) {
+    return value.replace(/[^0-9,.]/g, "");
 }
 
 function defineStatus(imc) {
@@ -71,18 +61,28 @@ function defineStatus(imc) {
 createTable();
 
 /*EVENTOS*/
+[heightInput, weightInput].forEach((el) => {
+    el.addEventListener("input", (e) => {
+        const updatedValue = verifyData(e.target.value);
+        e.target.value = updatedValue;
+    })
+})
+
 clearBtn.addEventListener("click", () => {
     weightInput.value = "";
     heightInput.value = "";
 });
 
 calculateBtn.addEventListener("click", () => {
-    const imc = calculateImc(weightInput.value, heightInput.value);
-
-    if (imc === null) {
-        alert("Informe valores válidos.");
+    const weight = weightInput.value.replace(",", ".");
+    const height = heightInput.value.replace(",", ".");
+    
+    if(!weight || !height) {
+        alert("Informe os valores necessários.");
         return;
     }
+
+    const imc = calculateImc(weight, height);
 
     toggleScreens();
     resultImc.textContent = imc.toFixed(2);
